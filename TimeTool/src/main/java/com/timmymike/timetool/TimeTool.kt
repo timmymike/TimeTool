@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-object DateUnit {
+object TimeUnits {
     /** 一秒 */
     val oneSec = 1000L
 
@@ -218,7 +218,7 @@ fun Date.getWeekFirstDay(week: Int = Calendar.SUNDAY, calendarUse: Boolean = fal
     calender.set(Calendar.DAY_OF_WEEK, week)
     //Timmy修改：確保取得的時間一定小於傳入值
     return if (calendarUse && calender.time.time == this.time)
-        Date(calender.time.time - DateUnit.oneWeek)
+        Date(calender.time.time - TimeUnits.oneWeek)
     else
         calender.time
 }
@@ -237,7 +237,7 @@ fun Date.getWeekEndDay(week: Int = Calendar.SATURDAY): Date {
     return if (calender.time.time >= this.time)
         calender.time
     else
-        Date(calender.time.time + DateUnit.oneWeek)
+        Date(calender.time.time + TimeUnits.oneWeek)
 }
 
 
@@ -444,7 +444,7 @@ val Date.weeksOfYear: Int
 fun Date.getDaysInRange(startTime: Long, endTime: Long): Int {
     val startDate = Date(startTime).getStartOfDay()
     val endDate = Date(endTime).getEndOfDay()
-    return ((endDate.time + 1L - startDate.time) / DateUnit.oneDay).toInt()
+    return ((endDate.time + 1L - startDate.time) / TimeUnits.oneDay).toInt()
 }
 
 /**

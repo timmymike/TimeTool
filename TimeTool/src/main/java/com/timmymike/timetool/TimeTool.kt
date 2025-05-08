@@ -2,7 +2,10 @@ package com.timmymike.timetool
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 
 object TimeUnits {
@@ -63,18 +66,17 @@ fun Long.toInterval(): Long {
     return (Date().time - this)
 }
 
-fun Date.toString(format: String, timeZone: TimeZone = TimeZone.getDefault()): String {
-    val sdf = SimpleDateFormat(format, Locale.getDefault())
-    sdf.timeZone = timeZone
-    return sdf.format(this)
+fun Date.toString(format: String, timeZone: TimeZone = TimeZone.getDefault()): String = SimpleDateFormat(format, Locale.getDefault()).let {
+    it.timeZone = timeZone
+    it.format(this)
 }
 
-fun Date.toYMDHMS(needShowMillsecond: Boolean = true, timeZone: TimeZone = TimeZone.getDefault()): String {
-    return if (needShowMillsecond) this.toString("yyyy-MM-dd HH:mm:ss.SSS", timeZone) else this.toString("yyyy-MM-dd HH:mm:ss", timeZone)
+fun Date.toYMDHMS(needShowMillisecond: Boolean = false, timeZone: TimeZone = TimeZone.getDefault()): String {
+    return if (needShowMillisecond) this.toString("yyyy-MM-dd HH:mm:ss.SSS", timeZone) else this.toString("yyyy-MM-dd HH:mm:ss", timeZone)
 }
 
-fun Long.toYMDHMS(needShowMillsecond: Boolean = true, timeZone: TimeZone = TimeZone.getDefault()): String {
-    return this.toDate().toYMDHMS(needShowMillsecond, timeZone)
+fun Long.toYMDHMS(needShowMillisecond: Boolean = false, timeZone: TimeZone = TimeZone.getDefault()): String {
+    return this.toDate().toYMDHMS(needShowMillisecond, timeZone)
 }
 
 fun Date.toYMD(): String {
